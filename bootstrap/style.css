@@ -101,13 +101,18 @@ body{
 /* Lead Structure 2 Starts */
 .table{
     background-color: var(--white);
-    border-radius: .2rem;
+    /* border-radius: 1.2rem; */
+    border-color: var(--bgCol);
 }
 
 .thead{
+    border-radius: 1.2rem;
 }
 
-.thead tr th{
+tr{
+}
+
+thead tr th{
     text-transform: capitalize;
 }
 
