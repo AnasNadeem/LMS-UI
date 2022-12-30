@@ -1,0 +1,30 @@
+/* Universal CSS Begins  */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+:root {
+  --bgCol: #E8EDF1;
+  --white: #FAFAFA;
+  --accentCol:#3F87C1;
+}
+
+body{
+  background-color: var(--bgCol);
+}
+/* Universal CSS Ends  */
