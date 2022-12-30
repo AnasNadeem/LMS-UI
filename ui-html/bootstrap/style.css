@@ -78,7 +78,7 @@ body{
 }
 /* FormCard CSS Ends  */
 
-/* LeadAttribute CSS Starts  */
+/* LeadAttribute/Lead CSS Starts  */
 .sidebar{
     display: flex;
     position: absolute;
@@ -86,10 +86,22 @@ body{
     width: 12rem;
     top: 0;
     left: 0;
-    padding-top: 14px; /* Place content 60px from the top */
     transition: 0.26s;
     background-color: var(--white);
     /* box-shadow: 0 0 10px 0 rgba(0,0,0,0.4); */
+}
+
+.sidebarBody{
+    margin-top: 5rem;
+}
+
+.sidebarBodyA{
+    padding: 4px 8px 4px 2px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    display: flex;
+    color: var(--accentCol);
 }
 
 .main{
@@ -124,9 +136,6 @@ body{
 
 .thead{
     border-radius: 1.2rem;
-}
-
-tr{
 }
 
 thead tr th{
