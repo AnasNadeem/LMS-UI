@@ -94,15 +94,32 @@ body{
 
 .main{
     width: 100%;
-    margin-top: 5rem;
-
+    margin-top: 2rem;
 }
-/* LeadAttribute CSS Ends  */
-/* Lead Structure 2 Starts */
+
+.topBtn{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+}
+
+.createBtn{
+    font-size: 1rem;
+    font-weight: 400;
+    padding: 0.5rem 1.2rem;
+    outline: none;
+    background: var(--accentCol);
+    /* line-height: 1; */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
 .table{
     background-color: var(--white);
     /* border-radius: 1.2rem; */
     border-color: var(--bgCol);
+    margin-top: 1rem;
 }
 
 .thead{
@@ -123,4 +140,4 @@ tbody tr{
 .helpText{
     word-wrap: break-word;
 }
-/* Lead Structure 2 Ends */
+/* Lead Structure Ends */
