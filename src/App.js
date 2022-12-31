@@ -1,9 +1,9 @@
-function App() {
+import Login from './Pages/Login'
+
+const App = () => {
   return (
-    <div className="App">
-      Hello
-    </div>
-  );
+    <Login />
+  )
 }
 
-export default App;
+export default App
