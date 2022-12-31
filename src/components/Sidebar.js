@@ -5,16 +5,16 @@ const Sidebar = () => {
     <div className="container sidebar">
         <div className="sidebarBody">
         <li>
-            <a className="sidebarBodyA" href="#">
+            <a className="sidebarBodyA" href="/lead">
                 Home
             </a>
         </li>
         <li>
-            <a className="sidebarBodyA" href="#">
+            <a className="sidebarBodyA" href="/leadstructure">
             Structure
             </a>
         </li>
-        <li>
+        {/* <li>
             <a className="sidebarBodyA" href="#">
             Report
             </a>
@@ -23,7 +23,7 @@ const Sidebar = () => {
             <a className="sidebarBodyA" href="#">
             Users
             </a>
-        </li>
+        </li> */}
         </div>
     </div>
   )

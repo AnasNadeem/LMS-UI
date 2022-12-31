@@ -2,26 +2,26 @@ import Sidebar from "../components/Sidebar"
 
 const Lead = () => {
   return (
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-2">
+    <div className="container-fluid">
+        <div className="row">
+            <div className="col-2">
               <Sidebar />
             </div>
-            <div class="col-10">
-                <div class="main">
-                    <div class="container-fluid">
-                      <h2 class="mainTitle">
+            <div className="col-10">
+                <div className="main">
+                    <div className="container-fluid">
+                      <h2 className="mainTitle">
                         Lead
                       </h2>
-                      <div class="topBtn">
-                        <button class="btn createBtn">
+                      <div className="topBtn">
+                        <button className="btn createBtn">
                           Create New
                         </button>
-                        <button class="btn createBtn">
+                        <button className="btn createBtn">
                             Filters
                         </button>
                       </div>
-                      <table class="table table-responsive-md table-responsive-sm ">
+                      <table className="table table-responsive-md table-responsive-sm ">
                           <thead>
                             <tr>
                               <th scope="col">Name</th>
@@ -39,11 +39,11 @@ const Lead = () => {
                               <td>name</td>
                               <td>String</td>
                               <td>Main</td>
-                              <td class="helpText">-</td>
-                              <td class="helpText">Name of the customer</td>
+                              <td className="helpText">-</td>
+                              <td className="helpText">Name of the customer</td>
                               <td>
-                                <i class="fas fa-edit"></i>
-                                <i class="fa-solid fa-trash"></i>
+                                <i className="fas fa-edit"></i>
+                                <i className="fa-solid fa-trash"></i>
                               </td>
                             </tr>
                             <tr>
@@ -51,11 +51,11 @@ const Lead = () => {
                               <td>status</td>
                               <td>Dropdown</td>
                               <td>Track</td>
-                              <td class="helpText">In Progress, Completed</td>
-                              <td class="helpText">Current status</td>
+                              <td className="helpText">In Progress, Completed</td>
+                              <td className="helpText">Current status</td>
                               <td>
-                                <i class="fas fa-edit"></i>
-                                <i class="fa-solid fa-trash"></i>
+                                <i className="fas fa-edit"></i>
+                                <i className="fa-solid fa-trash"></i>
                               </td>
                             </tr>
                           </tbody>
