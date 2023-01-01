@@ -1,9 +1,11 @@
 import axios from '../axios';
 
+const baseUrl = 'http://127.0.0.1:8000'
+
 // User
-export const getUser = () => axios.get('/user');
-export const createUser = (data) => axios.post('/user', data);
-export const login = (data) => axios.post('/user/login', data);
+export const getUser = () => axios.get(`${baseUrl}/user`);
+export const createUser = (data) => axios.post(`${baseUrl}/user`, data);
+export const login = (data) => axios.post(`${baseUrl}/user/login`, data);
 export const forgetPassword = (data) => axios.post('/user/forget_password', data);
 export const tokenLogin = (data) => axios.post('/user/token_login', data);
 export const verifyOtp = (data) => axios.post('/user/verify_otp', data);
