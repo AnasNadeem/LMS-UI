@@ -1,17 +1,39 @@
 import { useState } from "react";
+import { verifyOtp } from "../api";
 import { checkIfEmpty } from "../utils";
 
 const Otp = () => {
   const [otp, setOtp] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  
+  if (!localStorage.getItem('user')){
+    document.location = '/register';
+  }
+  const user = JSON.parse(localStorage.getItem('user'));
 
-  const handleOtp = (e) => {
+  const handleOtp = async (e) => {
     e.preventDefault();
     if (checkIfEmpty(otp)){
       setErrorMsg('Otp should not be empty');
       return;
     }
+    const otpData = {
+      'email': user.email,
+      'otp': otp.trim()
+    }
 
+    try{
+      const resp = await verifyOtp(otpData);
+      localStorage.setItem('user', JSON.stringify(resp.data));
+      document.location = '/leadstructure';
+    } catch(err){
+      let errorMsg = '';
+      for (const [key, value] of Object.entries(err.response.data)) {
+        errorMsg += `${key.toUpperCase()}: ${value}`;
+      }
+      setErrorMsg(errorMsg);
+      return;
+    }
     setOtp('');
   }
 
@@ -21,9 +43,13 @@ const Otp = () => {
         <div className="col-lg-5 offset-7">
           <div className="card FormCard">
             <div className="card-body FormCardBody">
-              {errorMsg &&
+              {errorMsg ?
                 <div className="FormCardBodyGroup alert alert-danger" role="alert">
                   {errorMsg}
+                </div> :
+                <div className="FormCardBodyGroup alert alert-success" role="alert">
+                  Registered successfully. <br />
+                  {user.message}
                 </div>
               }
               <form>
