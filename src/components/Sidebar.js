@@ -1,4 +1,4 @@
-import React from 'react'
+import { logout } from '../utils';
 
 const Sidebar = () => {
   return (
@@ -24,9 +24,14 @@ const Sidebar = () => {
             Users
             </a>
         </li> */}
+        <li>
+            <button className="sidebarBodyA" onClick={logout}>
+                Logout
+            </button>
+        </li>
         </div>
     </div>
   )
 }
 
-export default Sidebar
+export default Sidebar;

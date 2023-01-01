@@ -127,6 +127,10 @@ body{
   justify-content: center;
 }
 
+.leadFormCard{
+  margin-top: 1rem;
+}
+
 .table{
   background-color: var(--white);
   /* border-radius: 1.2rem; */

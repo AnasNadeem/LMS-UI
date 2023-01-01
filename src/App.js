@@ -1,3 +1,4 @@
+import Account from './Pages/Account';
 import Lead from './Pages/Lead';
 import LeadAttribute from './Pages/LeadAttribute';
 import Login from './Pages/Login';
@@ -18,6 +19,10 @@ const App = () => {
     {
       path: "/otp",
       element: <Otp />
+    },
+    {
+      path: "/account",
+      element: <Account />
     },
     {
       path: "/lead",
