@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { login } from "../api";
 import { checkIfEmpty } from "../utils";
 
 const Login = () => {
@@ -7,7 +8,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     if (checkIfEmpty(email)){
       setErrorMsg('Email should not be empty');
@@ -15,6 +16,28 @@ const Login = () => {
     }
     if (checkIfEmpty(password)){
       setErrorMsg('Password should not be empty');
+      return;
+    }
+
+    const loginData = {
+      "email": email,
+      "password": password
+    }
+
+    try{
+      const resp = await login(loginData);
+      localStorage.setItem('user', JSON.stringify(resp.data));
+      if (resp.data.is_active){
+        document.location = '/leadstructure';
+      } else{
+        document.location = '/otp';
+      }
+    } catch(err){
+      let errorMsg = '';
+      for (const [key, value] of Object.entries(err.response.data)) {
+        errorMsg += `${key.toUpperCase()}: ${value}`;
+      }
+      setErrorMsg(errorMsg);
       return;
     }
 

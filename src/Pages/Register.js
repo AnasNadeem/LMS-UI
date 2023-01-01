@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createUser } from "../api";
 import { checkIfEmpty } from "../utils";
 
 const Register = () => {
@@ -10,7 +11,7 @@ const Register = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     if (checkIfEmpty(email)){
       setErrorMsg('Email should not be empty');
@@ -22,6 +23,29 @@ const Register = () => {
     }
     if (checkIfEmpty(confirmPassword)){
       setErrorMsg('Confirm password should not be empty');
+      return;
+    }
+
+    if (password !== confirmPassword){
+      setErrorMsg('Both passwords should be same');
+      return;
+    }
+
+    const registerData = {
+      "email": email,
+      "password": password
+    }
+
+    try{
+      const resp = await createUser(registerData);
+      localStorage.setItem('user', JSON.stringify(resp.data));
+      document.location = '/otp';
+    } catch(err){
+      let errorMsg = '';
+      for (const [key, value] of Object.entries(err.response.data)) {
+        errorMsg += `${key.toUpperCase()}: ${value}`;
+      }
+      setErrorMsg(errorMsg);
       return;
     }
 
@@ -75,7 +99,7 @@ const Register = () => {
                       onInput={(e) => setConfirmPassword(e.target.value)}
                       className="form-control border-0"
                       />
-                      <i className="fa-solid fa-eye d-flex align-items-center m-2" onClick={() => setShowConfirmPassword(!showPassword)}></i>
+                      <i className="fa-solid fa-eye d-flex align-items-center m-2" onClick={() => setShowConfirmPassword(!showConfirmPassword)}></i>
                     </div>
                   </div>
                   <button type="submit" onClick={handleRegister} className="btn btn-secondary FormCardBodyGroupButton m-auto">Register</button>

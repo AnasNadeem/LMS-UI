@@ -24,7 +24,7 @@ const App = () => {
       element: <Lead />
     },
     {
-      path: "/leadattribute",
+      path: "/leadstructure",
       element: <LeadAttribute />
     },
   ]);
