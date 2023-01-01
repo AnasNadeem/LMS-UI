@@ -1,7 +1,8 @@
-import Login from './Pages/Login';
-import Register from './Pages/Register';
 import Lead from './Pages/Lead';
 import LeadAttribute from './Pages/LeadAttribute';
+import Login from './Pages/Login';
+import Otp from './Pages/Otp';
+import Register from './Pages/Register';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const App = () => {
@@ -13,6 +14,10 @@ const App = () => {
     {
       path: "/register",
       element: <Register />
+    },
+    {
+      path: "/otp",
+      element: <Otp />
     },
     {
       path: "/lead",

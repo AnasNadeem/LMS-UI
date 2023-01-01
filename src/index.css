@@ -33,7 +33,7 @@ body{
   background-color: var(--white);
   border-radius: 0;
   border-color: var(--white);
-  top: 40%;
+  margin-top: 10rem;
 }
 
 .FormCardBody{
