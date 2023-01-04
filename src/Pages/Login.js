@@ -14,8 +14,9 @@ const Login = () => {
       const accountResp = await getAccount();
       if (accountResp.data.length > 0){
         document.location = '/leadstructure';
+      }else{
+        document.location = '/account';
       }
-      document.location = '/account';
     } catch(err){
       logout();
     }
