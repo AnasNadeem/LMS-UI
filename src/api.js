@@ -2,17 +2,30 @@ import axios from 'axios';
 
 const baseUrl = 'http://127.0.0.1:8000/api'
 
+const user = JSON.parse(localStorage.getItem('user'));
+
+export const baseAxios = axios.create({
+    baseURL: baseUrl,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: user && user.is_active
+      ? user.token
+      : '',
+    },
+});
+
 // User
-export const getUser = () => axios.get(`${baseUrl}/user`);
-export const createUser = (data) => axios.post(`${baseUrl}/user`, data);
-export const login = (data) => axios.post(`${baseUrl}/user/login`, data);
-export const forgetPassword = (data) => axios.post(`${baseUrl}/user/forget_password`, data);
-export const tokenLogin = (data) => axios.post(`${baseUrl}/user/token_login`, data);
-export const verifyOtp = (data) => axios.post(`${baseUrl}/user/verify_otp`, data);
-export const passwordChange = (data) => axios.post(`${baseUrl}/user/password_change`, data);
+export const getUser = () => baseAxios.get(`/user`);
+export const createUser = (data) => baseAxios.post(`/user`, data);
+export const login = (data) => baseAxios.post(`/user/login`, data);
+export const forgetPassword = (data) => baseAxios.post(`/user/forget_password`, data);
+export const tokenLogin = (data) => baseAxios.post(`/user/token_login`, data);
+export const verifyOtp = (data) => baseAxios.post(`/user/verify_otp`, data);
+export const passwordChange = (data) => baseAxios.post(`/user/password_change`, data);
 
 // Account
-export const getMyAccount = (accountId) => axios.get(`${baseUrl}/account/${accountId}`);
-export const createAccount = (data) => axios.post(`${baseUrl}/account`, data);
-export const updateAccount = (accountId, data) => axios.post(`${baseUrl}/account/${accountId}`, data);
-export const downloadCsv = () => axios.get(`${baseUrl}/account/download_csv`);
+export const getIdAccount = (accountId) => baseAxios.get(`/account/${accountId}`);
+export const getAccount = () => baseAxios.get(`/account`);
+export const createAccount = (data) => baseAxios.post(`/account`, data);
+export const updateAccount = (accountId, data) => baseAxios.post(`/account/${accountId}`, data);
+export const downloadCsv = () => baseAxios.get(`/account/download_csv`);

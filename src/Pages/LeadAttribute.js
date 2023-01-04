@@ -40,7 +40,7 @@ const LeadAttribute = () => {
                                 <label htmlFor="type" className="form-label FormCardBodyGroupTitle">Type</label>
                                 <div className="d-flex FormCardBodyGroupInput rounded">
                                   <select className="form-select border-0">
-                                    <option value="main" selected>Main</option>
+                                    <option defaultValue="main">Main</option>
                                     <option value="track">Track</option>
                                     <option value="post">Post</option>
                                   </select>
@@ -56,7 +56,7 @@ const LeadAttribute = () => {
                                     <option value="choices">Choices</option>
                                     <option value="integer">Integer</option>
                                     <option value="phone_number">Phone Number</option>
-                                    <option value="string" selected>String</option>
+                                    <option defaultValue="string">String</option>
                                   </select>
                                 </div>
                               </div>

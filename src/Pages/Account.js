@@ -19,8 +19,8 @@ const Account = () => {
 
     try{
       const resp = await createAccount(accountData);
-      console.log(resp.data)
-    //   document.location = '/leadstructure';
+      localStorage.setItem('account', JSON.stringify(resp.data));
+      document.location = '/leadstructure';
     } catch(err){
       let errorMsg = '';
       for (const [key, value] of Object.entries(err.response.data)) {
