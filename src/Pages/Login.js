@@ -13,7 +13,6 @@ const Login = () => {
     try{
       const accountResp = await getAccount();
       if (accountResp.data.length > 0){
-        console.log(accountResp.data.length)
         document.location = '/leadstructure';
       }
       document.location = '/account';
