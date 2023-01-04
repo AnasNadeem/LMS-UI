@@ -1,12 +1,35 @@
 import { useState } from "react";
-import { login } from "../api";
-import { checkIfEmpty } from "../utils";
+import { getAccount, login } from "../api";
+import { checkIfEmpty, logout } from "../utils";
+import { baseAxios } from "../api";
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+
+  const fetchAccount = async () => {
+    try{
+      const accountResp = await getAccount();
+      if (accountResp.data.length > 0){
+        document.location = '/leadstructure';
+      }
+      document.location = '/account';
+    } catch(err){
+      logout();
+    }
+  }
+
+  if (localStorage.getItem('user')){
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user.is_active){
+      baseAxios.defaults.headers.Authorization = `${user.token}`;
+      fetchAccount();
+    } else{
+      document.location = '/otp';
+    }
+  }
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -28,7 +51,8 @@ const Login = () => {
       const resp = await login(loginData);
       localStorage.setItem('user', JSON.stringify(resp.data));
       if (resp.data.is_active){
-        document.location = '/leadstructure';
+        baseAxios.defaults.headers.Authorization = `${resp.data.token}`;
+        fetchAccount();
       } else{
         document.location = '/otp';
       }
