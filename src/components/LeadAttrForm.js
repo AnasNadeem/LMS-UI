@@ -56,6 +56,7 @@ const LeadAttrForm = () => {
     setChoice('string');
     setHelpText('');
     setErrorMsg('');
+    setSuccessMsg('');
   }
 
   return (
