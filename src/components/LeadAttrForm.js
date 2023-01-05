@@ -15,6 +15,10 @@ const LeadAttrForm = () => {
 
   const handleLeadAttribute = async (e) => {
     e.preventDefault();
+
+    setErrorMsg('');
+    setSuccessMsg('');
+
     if (checkIfEmpty(name)){
       setErrorMsg('Name should not be empty');
       return;
@@ -55,8 +59,6 @@ const LeadAttrForm = () => {
     setType('main');
     setChoice('string');
     setHelpText('');
-    setErrorMsg('');
-    setSuccessMsg('');
   }
 
   return (
