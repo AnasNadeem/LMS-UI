@@ -1,3 +1,4 @@
+import LeadAttrForm from "../components/LeadAttrForm";
 import Sidebar from "../components/Sidebar";
 
 const LeadAttribute = () => {
@@ -21,61 +22,7 @@ const LeadAttribute = () => {
                       </div>
 
                       <div className="collapse" id="createLeadStructure">
-                        <div className="card card-body leadFormCard">
-                          <div className="row">
-                            <div className="col-3">
-                              <div className="FormCardBodyGroup">
-                                <label htmlFor="name" className="form-label FormCardBodyGroupTitle">Name</label>
-                                <div className="d-flex FormCardBodyGroupInput rounded">
-                                  <input
-                                  type="text"
-                                  className="form-control border-0"
-                                  id="name"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                            <div className="col-3">
-                              <div className="FormCardBodyGroup">
-                                <label htmlFor="type" className="form-label FormCardBodyGroupTitle">Type</label>
-                                <div className="d-flex FormCardBodyGroupInput rounded">
-                                  <select className="form-select border-0">
-                                    <option defaultValue="main">Main</option>
-                                    <option value="track">Track</option>
-                                    <option value="post">Post</option>
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="col-3">
-                              <div className="FormCardBodyGroup">
-                                <label htmlFor="choice" className="form-label FormCardBodyGroupTitle">Choice</label>
-                                <div className="d-flex FormCardBodyGroupInput rounded">
-                                  <select className="form-select border-0">
-                                    <option value="boolean">Boolean</option>
-                                    <option value="choices">Choices</option>
-                                    <option value="integer">Integer</option>
-                                    <option value="phone_number">Phone Number</option>
-                                    <option defaultValue="string">String</option>
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="col-3">
-                              <div className="FormCardBodyGroup">
-                                <label htmlFor="value" className="form-label FormCardBodyGroupTitle">Value</label>
-                                <div className="d-flex FormCardBodyGroupInput rounded">
-                                  <input
-                                  type="text"
-                                  className="form-control border-0"
-                                  id="value"
-                                  />
-                                </div>
-                                </div>
-                            </div>
-                          </div>
-                          <button className="btn btn-primary FormCardBodyGroupButton">Add</button>
-                        </div>
+                      <LeadAttrForm />
                       </div>
 
                       <table className="table table-responsive-md table-responsive-sm ">
@@ -117,6 +64,7 @@ const LeadAttribute = () => {
                             </tr>
                           </tbody>
                         </table>
+
                     </div>
                 </div>
             </div>
