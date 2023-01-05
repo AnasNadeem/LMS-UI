@@ -10,6 +10,7 @@ const LeadAttrForm = () => {
   // const [value, setValue] = useState(null);
   const [helpText, setHelpText] = useState('');
 
+  const [successMsg, setSuccessMsg] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
   const handleLeadAttribute = async (e) => {
@@ -27,27 +28,31 @@ const LeadAttrForm = () => {
       return;
     }
 
+    const account = JSON.parse(localStorage.getItem('account'));
     const leadAttrData = {
+      "account": account.id,
       "name": name,
-      "type": type,
-      "choice": choice,
+      "lead_type": type,
+      "attribute_type": choice,
       "value": null,
       "help_text": helpText,
     }
-    console.log(leadAttrData)
-    // try{
-    //   const resp = await createLeadAttr(leadAttrData);
-    // } catch(err){
-    //   let errorMsg = '';
-    //   for (const [key, value] of Object.entries(err.response.data)) {
-    //     errorMsg += `${key.toUpperCase()}: ${value}`;
-    //   }
-    //   setErrorMsg(errorMsg);
-    //   return;
-    // }
+
+    try{
+      const resp = await createLeadAttr(leadAttrData);
+      setSuccessMsg(`${name} created successfully`)
+      console.log(resp.data)
+    } catch(err){
+      let errorMsg = '';
+      for (const [key, value] of Object.entries(err.response.data)) {
+        errorMsg += `${key.toUpperCase()}: ${value}`;
+      }
+      setErrorMsg(errorMsg);
+      return;
+    }
 
     setName('');
-    setType('');
+    setType('main');
     setChoice('string');
     setHelpText('');
     setErrorMsg('');
@@ -56,6 +61,11 @@ const LeadAttrForm = () => {
   return (
     <form onSubmit={handleLeadAttribute}>
       <div className="card card-body leadFormCard">
+          {successMsg &&
+          <div className="FormCardBodyGroup alert alert-success" role="alert">
+              {successMsg}
+          </div>
+          }
           {errorMsg &&
           <div className="FormCardBodyGroup alert alert-danger" role="alert">
               {errorMsg}
