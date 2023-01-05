@@ -113,6 +113,7 @@ const LeadAttrForm = () => {
                       >
                         <option value="boolean">Boolean</option>
                         <option value="choices">Choices</option>
+                        <option value="email">Email</option>
                         <option value="integer">Integer</option>
                         <option value="phone_number">Phone Number</option>
                         <option value="string">String</option>
