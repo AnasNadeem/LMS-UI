@@ -29,3 +29,8 @@ export const getAccount = () => baseAxios.get(`/account`);
 export const createAccount = (data) => baseAxios.post(`/account`, data);
 export const updateAccount = (accountId, data) => baseAxios.post(`/account/${accountId}`, data);
 export const downloadCsv = () => baseAxios.get(`/account/download_csv`);
+
+// Lead Attribute
+export const getIdLeadAttr = (leadAttrId) => baseAxios.get(`/leadattribute/${leadAttrId}`);
+export const getLeadAttr = () => baseAxios.get(`/leadattribute`);
+export const createLeadAttr = (data) => baseAxios.post(`/leadattribute`, data);
