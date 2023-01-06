@@ -81,7 +81,7 @@ body{
 /* LeadAttribute/Lead CSS Starts  */
 .sidebar{
   display: flex;
-  position: absolute;
+  position: fixed;
   height: 100%;
   width: 12rem;
   top: 0;
@@ -152,5 +152,9 @@ tbody tr{
 
 .helpText{
   word-wrap: break-word;
+}
+
+.trashIcon:hover{
+  color: #c70000;
 }
 /* Lead Structure Ends */
