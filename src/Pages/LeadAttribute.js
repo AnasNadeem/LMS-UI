@@ -1,7 +1,25 @@
+import { useEffect, useState } from "react";
+import { getLeadAttr } from "../api";
 import LeadAttrForm from "../components/LeadAttrForm";
+import LeadAttrTable from "../components/LeadAttrTable";
 import Sidebar from "../components/Sidebar";
 
 const LeadAttribute = () => {
+  const [leadAttrData, setLeadAttrData] = useState([]);
+
+  const fetchLeadAttr = async () => {
+    const resp = await getLeadAttr();
+    setLeadAttrData(resp.data)
+  }
+
+  useEffect(() => {
+      fetchLeadAttr();
+  }, [])
+
+  const postCreation = (data) => {
+    setLeadAttrData([...leadAttrData, data])
+  }
+
   return (
     <div className="container-fluid">
         <div className="row">
@@ -22,48 +40,27 @@ const LeadAttribute = () => {
                       </div>
 
                       <div className="collapse" id="createLeadStructure">
-                      <LeadAttrForm />
+                      <LeadAttrForm postCreation={postCreation}/>
                       </div>
 
-                      <table className="table table-responsive-md table-responsive-sm ">
-                          <thead>
-                            <tr>
-                              <th scope="col">Name</th>
-                              <th scope="col">Slug</th>
-                              <th scope="col">Attribute</th>
-                              <th scope="col">Type</th>
-                              <th scope="col">Value</th>
-                              <th scope="col">Help Text</th>
-                              <th></th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>Name</td>
-                              <td>name</td>
-                              <td>String</td>
-                              <td>Main</td>
-                              <td className="helpText">-</td>
-                              <td className="helpText">Name of the customer</td>
-                              <td>
-                                <i className="fas fa-edit"></i>
-                                <i className="fa-solid fa-trash"></i>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>Status</td>
-                              <td>status</td>
-                              <td>Dropdown</td>
-                              <td>Track</td>
-                              <td className="helpText">In Progress, Completed</td>
-                              <td className="helpText">Current status</td>
-                              <td>
-                                <i className="fas fa-edit"></i>
-                                <i className="fa-solid fa-trash"></i>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                    <table className="table table-responsive-md table-responsive-sm ">
+                      <thead>
+                        <tr>
+                          <th scope="col">Name</th>
+                          <th scope="col">Slug</th>
+                          <th scope="col">Attribute</th>
+                          <th scope="col">Type</th>
+                          <th scope="col">Value</th>
+                          <th scope="col">Help Text</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {leadAttrData && 
+                        leadAttrData.map(leadattr => <LeadAttrTable key={leadattr.id} leadattr={leadattr}/>)
+                      }
+                      </tbody>
+                    </table>
 
                     </div>
                 </div>

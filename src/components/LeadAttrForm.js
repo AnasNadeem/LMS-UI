@@ -2,7 +2,7 @@ import { useState } from "react";
 import { createLeadAttr } from "../api";
 import { checkIfEmpty } from "../utils";
 
-const LeadAttrForm = () => {
+const LeadAttrForm = (props) => {
     
   const [name, setName] = useState('');
   const [type, setType] = useState('main');
@@ -15,6 +15,10 @@ const LeadAttrForm = () => {
 
   const handleLeadAttribute = async (e) => {
     e.preventDefault();
+
+    setErrorMsg('');
+    setSuccessMsg('');
+
     if (checkIfEmpty(name)){
       setErrorMsg('Name should not be empty');
       return;
@@ -41,7 +45,7 @@ const LeadAttrForm = () => {
     try{
       const resp = await createLeadAttr(leadAttrData);
       setSuccessMsg(`${name} created successfully`)
-      console.log(resp.data)
+      props.postCreation(resp.data)
     } catch(err){
       let errorMsg = '';
       for (const [key, value] of Object.entries(err.response.data)) {
@@ -55,8 +59,6 @@ const LeadAttrForm = () => {
     setType('main');
     setChoice('string');
     setHelpText('');
-    setErrorMsg('');
-    setSuccessMsg('');
   }
 
   return (
