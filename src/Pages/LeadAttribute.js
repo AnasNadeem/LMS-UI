@@ -21,9 +21,7 @@ const LeadAttribute = () => {
   }
 
   const postDeletion = (index) => {
-    console.log('deleted', index)
     leadAttrData.splice(index, 1);
-    console.log(leadAttrData)
     setLeadAttrData([...leadAttrData])
   }
 
