@@ -6,7 +6,6 @@ import Sidebar from "../components/Sidebar";
 
 const LeadAttribute = () => {
   const [leadAttrData, setLeadAttrData] = useState([]);
-  const [errorMsg, setErrorMsg] = useState('');
 
   const fetchLeadAttr = async () => {
     const resp = await getLeadAttr();
@@ -16,6 +15,10 @@ const LeadAttribute = () => {
   useEffect(() => {
       fetchLeadAttr();
   }, [])
+
+  const postCreation = (data) => {
+    setLeadAttrData([...leadAttrData, data])
+  }
 
   return (
     <div className="container-fluid">
@@ -37,7 +40,7 @@ const LeadAttribute = () => {
                       </div>
 
                       <div className="collapse" id="createLeadStructure">
-                      <LeadAttrForm />
+                      <LeadAttrForm postCreation={postCreation}/>
                       </div>
 
                     <table className="table table-responsive-md table-responsive-sm ">
