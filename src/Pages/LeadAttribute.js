@@ -20,6 +20,13 @@ const LeadAttribute = () => {
     setLeadAttrData([...leadAttrData, data])
   }
 
+  const postDeletion = (index) => {
+    console.log('deleted', index)
+    leadAttrData.splice(index, 1);
+    console.log(leadAttrData)
+    setLeadAttrData([...leadAttrData])
+  }
+
   return (
     <div className="container-fluid">
         <div className="row">
@@ -57,7 +64,13 @@ const LeadAttribute = () => {
                       </thead>
                       <tbody>
                       {leadAttrData && 
-                        leadAttrData.map(leadattr => <LeadAttrTable key={leadattr.id} leadattr={leadattr}/>)
+                        leadAttrData.map((leadattr, index) => 
+                          (<LeadAttrTable
+                            key={leadattr.id}
+                            index={index}
+                            postDeletion={postDeletion}
+                            leadattr={leadattr}/>
+                          ))
                       }
                       </tbody>
                     </table>

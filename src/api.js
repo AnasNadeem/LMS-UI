@@ -34,3 +34,4 @@ export const downloadCsv = () => baseAxios.get(`/account/download_csv`);
 export const getIdLeadAttr = (leadAttrId) => baseAxios.get(`/leadattribute/${leadAttrId}`);
 export const getLeadAttr = () => baseAxios.get(`/leadattribute`);
 export const createLeadAttr = (data) => baseAxios.post(`/leadattribute`, data);
+export const deleteLeadAttr = (leadAttrId) => baseAxios.delete(`/leadattribute/${leadAttrId}`);
