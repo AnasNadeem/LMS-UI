@@ -1,8 +1,22 @@
+import { useEffect, useState } from "react";
+import { getLeadAttr } from "../api";
 import LeadAttrForm from "../components/LeadAttrForm";
 import LeadAttrTable from "../components/LeadAttrTable";
 import Sidebar from "../components/Sidebar";
 
 const LeadAttribute = () => {
+  const [leadAttrData, setLeadAttrData] = useState([]);
+  const [errorMsg, setErrorMsg] = useState('');
+
+  const fetchLeadAttr = async () => {
+    const resp = await getLeadAttr();
+    setLeadAttrData(resp.data)
+  }
+
+  useEffect(() => {
+      fetchLeadAttr();
+  }, [])
+
   return (
     <div className="container-fluid">
         <div className="row">
@@ -26,7 +40,24 @@ const LeadAttribute = () => {
                       <LeadAttrForm />
                       </div>
 
-                      <LeadAttrTable />
+                    <table className="table table-responsive-md table-responsive-sm ">
+                      <thead>
+                        <tr>
+                          <th scope="col">Name</th>
+                          <th scope="col">Slug</th>
+                          <th scope="col">Attribute</th>
+                          <th scope="col">Type</th>
+                          <th scope="col">Value</th>
+                          <th scope="col">Help Text</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {leadAttrData && 
+                        leadAttrData.map(leadattr => <LeadAttrTable key={leadattr.id} leadattr={leadattr}/>)
+                      }
+                      </tbody>
+                    </table>
 
                     </div>
                 </div>
