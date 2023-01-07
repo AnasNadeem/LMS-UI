@@ -59,20 +59,32 @@ const LeadForm = () => {
 
     return (
         <form onSubmit={handleLead}>
-            {Object.values(leadAttrData).map((leadAttr) => (
-                <input
-                key={leadAttr.slug}
-                placeholder={leadAttr.name}
-                id={leadAttr.slug}
-                onInput={(e) => {
-                    const formValueData = {...leadFormData}
-                    formValueData[leadAttr.slug] = e.target.value;
-                    setleadFormData(formValueData);
-                }}
-                type="text" />
-            ))}
-          <button className="btn btn-primary FormCardBodyGroupButton" type="submit">Add</button>
-
+            <div className="card card-body mt-2">
+                <div className="leadFormCard">
+                    {Object.values(leadAttrData).map((leadAttr) => (
+                        <div className="FormCardBodyGroup" key={leadAttr.slug}>
+                            <label 
+                            htmlFor={leadAttr.slug}
+                            className="form-label FormCardBodyGroupTitle">
+                                {leadAttr.name}
+                            </label>
+                            <div className="d-flex FormCardBodyGroupInput rounded">
+                                <input
+                                className="form-control border-0"
+                                placeholder={leadAttr.name}
+                                id={leadAttr.slug}
+                                onInput={(e) => {
+                                    const formValueData = {...leadFormData}
+                                    formValueData[leadAttr.slug] = e.target.value;
+                                    setleadFormData(formValueData);
+                                }}
+                                type="text" />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            <button className="btn btn-primary FormCardBodyGroupButton" type="submit">Add</button>
+          </div>
         </form>
     )
 }
