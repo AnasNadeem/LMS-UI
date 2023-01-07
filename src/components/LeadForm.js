@@ -1,17 +1,27 @@
 import { useEffect, useState } from "react";
-import { getLeadAttr } from "../api";
+import { createLead, getLeadAttr } from "../api";
 
 const LeadForm = () => {
-    const [leadAttrData, setLeadAttrData] = useState([]);
+    const [leadAttrData, setLeadAttrData] = useState({});
     const [leadFormData, setleadFormData] = useState({});
+
+    const [errorMsg, setErrorMsg] = useState('');
 
     const fetchLeadAttr = async () => {
         const resp = await getLeadAttr();
-        setLeadAttrData(resp.data)
         let leadAttrObj = {}
+        let leadFullAttrObj = {}
         resp.data.forEach((value, index) => {
-            leadAttrObj[value.slug] = ''
+            if(value.attribute_type === 'boolean'){
+                leadAttrObj[value.slug] = false;
+            } else if (value.attribute_type === 'string'){
+                leadAttrObj[value.slug] = '';
+            }else{
+                leadAttrObj[value.slug] = null;
+            }
+            leadFullAttrObj[value.slug] = value;
         });
+        setLeadAttrData(leadFullAttrObj)
         setleadFormData(leadAttrObj);
     }
     
@@ -21,18 +31,37 @@ const LeadForm = () => {
 
     const handleLead = async (e) => {
         e.preventDefault();
-        const leadData = {main:{}, track:{}, lead:{}}
-        for (const [key, value] of Object.entries(leadData)) {
-            console.log(key, value)
+        const account = JSON.parse(localStorage.getItem('account'));
+        const data = {main:{}, track:{}, post:{}}
+        Object.entries(leadFormData).forEach(entry => {
+            const [key, value] = entry;
+            data[leadAttrData[key].lead_type][key] = value;
+        });
+        const leadData = {
+            "account": account.id,
+            "data": data
         }
-        console.log(leadFormData)
+        
+        try{
+            const resp = await createLead(leadData);
+            console.log(resp.data);
+          } catch(err){
+            let errorMsg = '';
+            for (const [key, value] of Object.entries(err.response.data)) {
+              errorMsg += `${key.toUpperCase()}: ${value}`;
+            }
+            console.log(errorMsg);
+            setErrorMsg(errorMsg);
+            return;
+          }
+
     }
 
     return (
         <form onSubmit={handleLead}>
-            {leadAttrData.map((leadAttr, index) => (
+            {Object.values(leadAttrData).map((leadAttr) => (
                 <input
-                key={index}
+                key={leadAttr.slug}
                 placeholder={leadAttr.name}
                 id={leadAttr.slug}
                 onInput={(e) => {

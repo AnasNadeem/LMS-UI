@@ -35,3 +35,9 @@ export const getIdLeadAttr = (leadAttrId) => baseAxios.get(`/leadattribute/${lea
 export const getLeadAttr = () => baseAxios.get(`/leadattribute`);
 export const createLeadAttr = (data) => baseAxios.post(`/leadattribute`, data);
 export const deleteLeadAttr = (leadAttrId) => baseAxios.delete(`/leadattribute/${leadAttrId}`);
+
+// Lead
+export const getIdLead = (leadId) => baseAxios.get(`/lead/${leadId}`);
+export const getLead = () => baseAxios.get(`/lead`);
+export const createLead = (data) => baseAxios.post(`/lead`, data);
+export const deleteLead = (leadId) => baseAxios.delete(`/leadattribute/${leadId}`);
