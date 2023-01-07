@@ -1,4 +1,5 @@
-import Sidebar from "../components/Sidebar"
+import Sidebar from "../components/Sidebar";
+import LeadForm from "../components/LeadForm";
 
 const Lead = () => {
   return (
@@ -14,13 +15,18 @@ const Lead = () => {
                         Lead
                       </h2>
                       <div className="topBtn">
-                        <button className="btn createBtn">
+                      <button className="btn createBtn" data-bs-toggle="collapse" data-bs-target="#createLeadForm" aria-expanded="false" aria-controls="createLeadForm">
                           Create New
                         </button>
                         <button className="btn createBtn">
                             Filters
                         </button>
                       </div>
+
+                      <div className="collapse" id="createLeadForm">
+                        <LeadForm />
+                      </div>
+
                       <table className="table table-responsive-md table-responsive-sm ">
                           <thead>
                             <tr>

@@ -35,7 +35,7 @@ const Account = () => {
 
   return (
     <div className="container">
-        <div className="card card-body leadFormCard">
+        <div className="card card-body leadFormAttrCard">
             {errorMsg &&
                 <div className="FormCardBodyGroup alert alert-danger" role="alert">
                 {errorMsg}
