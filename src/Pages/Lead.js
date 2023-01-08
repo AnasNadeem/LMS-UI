@@ -17,18 +17,6 @@ const Lead = () => {
       fetchLead();
   }, [])
 
-
-  // const a = () => {
-  //   leadData.map((lead) => {
-  //     const data = lead.data;
-  //     leadattribute.forEach(attr => {
-  //       console.log(data[attr.lead_type][attr.slug])
-  //     });
-  //     return data;
-  //   })
-  // }
-  // a();
-
   return (
     <div className="container-fluid">
         <div className="row">
@@ -63,17 +51,19 @@ const Lead = () => {
                             </tr>
                           </thead>
                           <tbody>
-                          {leadData.map((lead) => {
-                            return(
-                              <tr key={lead.id}>
-                                {
-                                  leadattribute.map((attr) => (
-                                    <td>{lead.data[attr.lead_type][attr.slug]}</td>
-                                  ))
-                                }
-                              </tr>
-                            )
-                            })}
+                          {leadData.map((lead) => (
+                            <tr key={lead.id}>
+                              {
+                                leadattribute.map((attr, index) => (
+                                  <td key={index}>{lead.data[attr.lead_type][attr.slug]}</td>
+                                ))
+                              }
+                              <td>
+                                  <i className="fas fa-edit"></i>{' '}
+                                  <i className="fa-solid fa-trash trashIcon"></i>
+                              </td>
+                            </tr>
+                            ))}
                             {/* <LeadTable /> */}
                           </tbody>
                         </table>
