@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createLead, getLeadAttr } from "../api";
+import { createLead } from "../api";
 
 const LeadForm = () => {
     const [leadAttrData, setLeadAttrData] = useState({});
@@ -7,11 +7,11 @@ const LeadForm = () => {
 
     const [errorMsg, setErrorMsg] = useState('');
 
-    const fetchLeadAttr = async () => {
-        const resp = await getLeadAttr();
+    const fetchLeadAttr = () => {
+        const leadattribute = JSON.parse(localStorage.getItem('leadattribute'));
         let leadAttrObj = {}
         let leadFullAttrObj = {}
-        resp.data.forEach((value, index) => {
+        leadattribute.forEach((value, index) => {
             if(value.attribute_type === 'boolean'){
                 leadAttrObj[value.slug] = false;
             } else if (value.attribute_type === 'string'){
@@ -60,6 +60,11 @@ const LeadForm = () => {
     return (
         <form onSubmit={handleLead}>
             <div className="card card-body mt-2">
+                {errorMsg &&
+                <div className="alert alert-danger" role="alert">
+                    {errorMsg}
+                </div>
+                }
                 <div className="leadFormCard">
                     {Object.values(leadAttrData).map((leadAttr) => (
                         <div className="FormCardBodyGroup" key={leadAttr.slug}>

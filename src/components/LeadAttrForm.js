@@ -65,12 +65,12 @@ const LeadAttrForm = (props) => {
     <form onSubmit={handleLeadAttribute}>
       <div className="card card-body leadFormAttrCard">
           {successMsg &&
-          <div className="FormCardBodyGroup alert alert-success" role="alert">
+          <div className="alert alert-success" role="alert">
               {successMsg}
           </div>
           }
           {errorMsg &&
-          <div className="FormCardBodyGroup alert alert-danger" role="alert">
+          <div className="alert alert-danger" role="alert">
               {errorMsg}
           </div>
           }
