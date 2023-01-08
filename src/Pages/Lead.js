@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import LeadForm from "../components/LeadForm";
-import { getLead } from "../api";
+import { getLead, deleteLead } from "../api";
 
 const Lead = () => {
   const [leadData, setLeadData] = useState([]);
@@ -17,6 +17,25 @@ const Lead = () => {
       fetchLead();
   }, [])
 
+  const postCreation = (data) => {
+    setLeadData([...leadData, data])
+  }
+
+  const deleteLeadHandler = async (id, leadIndex) => {
+    try{
+      await deleteLead(id);
+    } catch(err){
+      let errorMsg = '';
+      for (const [key, value] of Object.entries(err.response.data)) {
+        errorMsg += `${key.toUpperCase()}: ${value}`;
+      }
+      console.log('Error in deleting leadattr' + errorMsg)
+      return;
+    }
+    leadData.splice(leadIndex, 1);
+    setLeadData([...leadData])
+    console.log(leadData)
+  }
   return (
     <div className="container-fluid">
         <div className="row">
@@ -39,7 +58,7 @@ const Lead = () => {
                       </div>
 
                       <div className="collapse" id="createLeadForm">
-                        <LeadForm />
+                        <LeadForm postCreation={postCreation}/>
                       </div>
 
                       <table className="table table-responsive-md table-responsive-sm ">
@@ -51,7 +70,7 @@ const Lead = () => {
                             </tr>
                           </thead>
                           <tbody>
-                          {leadData.map((lead) => (
+                          {leadData.map((lead, leadIndex) => (
                             <tr key={lead.id}>
                               {
                                 leadattribute.map((attr, index) => (
@@ -60,7 +79,7 @@ const Lead = () => {
                               }
                               <td>
                                   <i className="fas fa-edit"></i>{' '}
-                                  <i className="fa-solid fa-trash trashIcon"></i>
+                                  <i className="fa-solid fa-trash trashIcon" onClick={() => deleteLeadHandler(lead.id, leadIndex)}></i>
                               </td>
                             </tr>
                             ))}
