@@ -44,7 +44,7 @@ const LeadForm = (props) => {
 
         try{
             const resp = await createLead(leadData);
-            props.postCreation(resp.data);
+            props.postLeadCreation(resp.data);
           } catch(err){
             let errorMsg = '';
             for (const [key, value] of Object.entries(err.response.data)) {

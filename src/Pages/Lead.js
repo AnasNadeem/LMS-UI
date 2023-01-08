@@ -17,7 +17,7 @@ const Lead = () => {
       fetchLead();
   }, [])
 
-  const postCreation = (data) => {
+  const postLeadCreation = (data) => {
     setLeadData([...leadData, data])
   }
 
@@ -34,7 +34,6 @@ const Lead = () => {
     }
     leadData.splice(leadIndex, 1);
     setLeadData([...leadData])
-    console.log(leadData)
   }
   return (
     <div className="container-fluid">
@@ -58,7 +57,7 @@ const Lead = () => {
                       </div>
 
                       <div className="collapse" id="createLeadForm">
-                        <LeadForm postCreation={postCreation}/>
+                        <LeadForm postLeadCreation={postLeadCreation}/>
                       </div>
 
                       <table className="table table-responsive-md table-responsive-sm ">
