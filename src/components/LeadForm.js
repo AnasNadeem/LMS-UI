@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createLead } from "../api";
 
-const LeadForm = () => {
+const LeadForm = (props) => {
     const [leadAttrData, setLeadAttrData] = useState({});
     const [leadFormData, setleadFormData] = useState({});
 
@@ -41,16 +41,15 @@ const LeadForm = () => {
             "account": account.id,
             "data": data
         }
-        
+
         try{
             const resp = await createLead(leadData);
-            console.log(resp.data);
+            props.postLeadCreation(resp.data);
           } catch(err){
             let errorMsg = '';
             for (const [key, value] of Object.entries(err.response.data)) {
               errorMsg += `${key.toUpperCase()}: ${value}`;
             }
-            console.log(errorMsg);
             setErrorMsg(errorMsg);
             return;
           }
