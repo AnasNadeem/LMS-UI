@@ -9,7 +9,8 @@ const LeadAttribute = () => {
 
   const fetchLeadAttr = async () => {
     const resp = await getLeadAttr();
-    setLeadAttrData(resp.data)
+    setLeadAttrData(resp.data);
+    localStorage.setItem('leadattribute', JSON.stringify(resp.data));
   }
 
   useEffect(() => {
@@ -18,11 +19,13 @@ const LeadAttribute = () => {
 
   const postCreation = (data) => {
     setLeadAttrData([...leadAttrData, data])
+    localStorage.setItem('leadattribute', JSON.stringify(leadAttrData));
   }
 
   const postDeletion = (index) => {
     leadAttrData.splice(index, 1);
     setLeadAttrData([...leadAttrData])
+    localStorage.setItem('leadattribute', JSON.stringify(leadAttrData));
   }
 
   return (
@@ -45,7 +48,7 @@ const LeadAttribute = () => {
                       </div>
 
                       <div className="collapse" id="createLeadStructure">
-                      <LeadAttrForm postCreation={postCreation}/>
+                        <LeadAttrForm postCreation={postCreation}/>
                       </div>
 
                     <table className="table table-responsive-md table-responsive-sm ">

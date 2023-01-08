@@ -1,7 +1,22 @@
+import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import LeadForm from "../components/LeadForm";
+import { getLead } from "../api";
 
 const Lead = () => {
+  const [leadData, setLeadData] = useState([]);
+
+  const leadattribute = JSON.parse(localStorage.getItem('leadattribute'));
+
+  const fetchLead = async () => {
+    const resp = await getLead();
+    setLeadData(resp.data);
+  }
+
+  useEffect(() => {
+      fetchLead();
+  }, [])
+
   return (
     <div className="container-fluid">
         <div className="row">
@@ -30,40 +45,26 @@ const Lead = () => {
                       <table className="table table-responsive-md table-responsive-sm ">
                           <thead>
                             <tr>
-                              <th scope="col">Name</th>
-                              <th scope="col">Slug</th>
-                              <th scope="col">Attribute</th>
-                              <th scope="col">Type</th>
-                              <th scope="col">Value</th>
-                              <th scope="col">Help Text</th>
-                              <th></th>
+                            {leadattribute.map((leadAttr) => (
+                              <th key={leadAttr.slug} scope="col">{leadAttr.name}</th>
+                            ))}
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <td>Name</td>
-                              <td>name</td>
-                              <td>String</td>
-                              <td>Main</td>
-                              <td className="helpText">-</td>
-                              <td className="helpText">Name of the customer</td>
+                          {leadData.map((lead) => (
+                            <tr key={lead.id}>
+                              {
+                                leadattribute.map((attr, index) => (
+                                  <td key={index}>{lead.data[attr.lead_type][attr.slug]}</td>
+                                ))
+                              }
                               <td>
-                                <i className="fas fa-edit"></i>
-                                <i className="fa-solid fa-trash"></i>
+                                  <i className="fas fa-edit"></i>{' '}
+                                  <i className="fa-solid fa-trash trashIcon"></i>
                               </td>
                             </tr>
-                            <tr>
-                              <td>Status</td>
-                              <td>status</td>
-                              <td>Dropdown</td>
-                              <td>Track</td>
-                              <td className="helpText">In Progress, Completed</td>
-                              <td className="helpText">Current status</td>
-                              <td>
-                                <i className="fas fa-edit"></i>
-                                <i className="fa-solid fa-trash"></i>
-                              </td>
-                            </tr>
+                            ))}
+                            {/* <LeadTable /> */}
                           </tbody>
                         </table>
                     </div>
