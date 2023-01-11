@@ -13,6 +13,7 @@ const Login = () => {
     try{
       const accountResp = await getAccount();
       if (accountResp.data.length > 0){
+        localStorage.setItem('account', JSON.stringify(accountResp.data));
         document.location = '/leadstructure';
       }else{
         document.location = '/account';

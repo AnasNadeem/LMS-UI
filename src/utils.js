@@ -3,7 +3,7 @@ export const checkIfEmpty = (value) => {
 }
 
 export const logout = () => {
-    localStorage.removeItem('user');
+    localStorage.clear()
     document.location = '/';
 }
 

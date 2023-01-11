@@ -25,7 +25,7 @@ const Otp = () => {
     try{
       const resp = await verifyOtp(otpData);
       localStorage.setItem('user', JSON.stringify(resp.data));
-      document.location = '/leadstructure';
+      document.location = '/account';
     } catch(err){
       let errorMsg = '';
       for (const [key, value] of Object.entries(err.response.data)) {

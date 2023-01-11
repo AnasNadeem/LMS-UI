@@ -60,6 +60,7 @@ const Lead = () => {
                         <LeadForm postLeadCreation={postLeadCreation}/>
                       </div>
 
+                    {leadattribute.length>0 ?  
                       <table className="table table-responsive-md table-responsive-sm ">
                           <thead>
                             <tr>
@@ -84,7 +85,9 @@ const Lead = () => {
                             ))}
                             {/* <LeadTable /> */}
                           </tbody>
-                        </table>
+                      </table>
+                    :  <h3>No Leads. Please define your structure first.</h3>}
+
                     </div>
                 </div>
             </div>
