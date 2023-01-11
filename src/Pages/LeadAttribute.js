@@ -18,8 +18,9 @@ const LeadAttribute = () => {
   }, [])
 
   const postCreation = (data) => {
-    setLeadAttrData([...leadAttrData, data])
-    localStorage.setItem('leadattribute', JSON.stringify(leadAttrData));
+    const updatedAttrData = [...leadAttrData, data]
+    setLeadAttrData(() => updatedAttrData)
+    localStorage.setItem('leadattribute', JSON.stringify(updatedAttrData));
   }
 
   const postDeletion = (index) => {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { createLeadAttr } from "../api";
 import { checkIfEmpty } from "../utils";
 
-const LeadAttrForm = (props) => {
+const LeadAttrForm = ({postCreation}) => {
     
   const [name, setName] = useState('');
   const [type, setType] = useState('main');
@@ -45,7 +45,7 @@ const LeadAttrForm = (props) => {
     try{
       const resp = await createLeadAttr(leadAttrData);
       setSuccessMsg(`${name} created successfully`)
-      props.postCreation(resp.data)
+      postCreation(resp.data)
     } catch(err){
       let errorMsg = '';
       for (const [key, value] of Object.entries(err.response.data)) {
