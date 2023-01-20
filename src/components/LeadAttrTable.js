@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { updateLeadAttr, deleteLeadAttr } from "../api";
 
-const LeadAttrTable = ({postDeletion, leadattr, index}) => {
+const LeadAttrTable = ({leadattr, index, postDeletion, postUpdate}) => {
   const [isEditOn, setIsEditOn] = useState(false);
 
   const [name, setName] = useState(leadattr.name);
@@ -61,7 +61,7 @@ const LeadAttrTable = ({postDeletion, leadattr, index}) => {
   const updateLeadAttribute = async (data) => {
     try{
       const updateResp = await updateLeadAttr(leadattr.id, data);
-      console.log(updateResp.data)
+      postUpdate(index, updateResp.data);
     } catch(err){
       let errorMsg = '';
       for (const [key, value] of Object.entries(err.response.data)) {
