@@ -1,0 +1,1 @@
+useContext instead of localStorage
