@@ -29,6 +29,12 @@ const LeadAttribute = () => {
     localStorage.setItem('leadattribute', JSON.stringify(leadAttrData));
   }
 
+  const postUpdate = (index, data) => {
+    leadAttrData.splice(index, 1, data);
+    setLeadAttrData([...leadAttrData])
+    localStorage.setItem('leadattribute', JSON.stringify(leadAttrData));
+  }
+
   return (
     <div className="container-fluid">
         <div className="row">
@@ -71,6 +77,7 @@ const LeadAttribute = () => {
                             key={leadattr.id}
                             index={index}
                             postDeletion={postDeletion}
+                            postUpdate={postUpdate}
                             leadattr={leadattr}/>
                           ))
                       }
