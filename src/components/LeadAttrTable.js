@@ -6,7 +6,7 @@ const LeadAttrTable = ({leadattr, index, postDeletion, postUpdate}) => {
 
   const [name, setName] = useState(leadattr.name);
   const [type, setType] = useState(leadattr.lead_type);
-  const [choice, setChoice] = useState(leadattr.attribute_type);
+  // const [choice, setChoice] = useState(leadattr.attribute_type);
   // const [value, setValue] = useState(null);
   const [helpText, setHelpText] = useState(leadattr.help_text);
 
@@ -45,7 +45,7 @@ const LeadAttrTable = ({leadattr, index, postDeletion, postUpdate}) => {
       "account": account.id,
       "name": name,
       "lead_type": type,
-      "attribute_type": choice,
+      "attribute_type": leadattr.attribute_type,
       "value": null,
       "help_text": helpText,
     }
@@ -87,21 +87,7 @@ const LeadAttrTable = ({leadattr, index, postDeletion, postUpdate}) => {
           </td>
           <td>{leadattr.slug}</td>
           <td>
-            {isEditOn ?
-              <select
-              className="form-select"
-              defaultValue={choice}
-              onInput={(e) => setChoice(e.target.value)}
-              >
-                <option value="boolean">Boolean</option>
-                <option value="choices">Choices</option>
-                <option value="email">Email</option>
-                <option value="integer">Integer</option>
-                <option value="phone_number">Phone Number</option>
-                <option value="string">String</option>
-              </select>
-              : leadattr.attribute_type
-            }
+            {leadattr.attribute_type}
           </td>
           <td>
           {isEditOn ?
