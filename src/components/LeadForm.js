@@ -4,7 +4,7 @@ import { createLead } from "../api";
 const LeadForm = (props) => {
     const [leadAttrData, setLeadAttrData] = useState({});
     const [leadFormData, setleadFormData] = useState({});
-
+    const [originalAttrData, setOriginalAttrData] = useState({});
     const [errorMsg, setErrorMsg] = useState('');
 
     const fetchLeadAttr = () => {
@@ -21,7 +21,8 @@ const LeadForm = (props) => {
             }
             leadFullAttrObj[value.slug] = value;
         });
-        setLeadAttrData(leadFullAttrObj)
+        setLeadAttrData(leadFullAttrObj);
+        setOriginalAttrData(leadAttrObj);
         setleadFormData(leadAttrObj);
     }
     
@@ -53,7 +54,7 @@ const LeadForm = (props) => {
             setErrorMsg(errorMsg);
             return;
           }
-
+        setleadFormData(originalAttrData);
     }
 
     return (
@@ -77,6 +78,7 @@ const LeadForm = (props) => {
                                 className="form-control border-0"
                                 placeholder={leadAttr.name}
                                 id={leadAttr.slug}
+                                value={leadFormData[leadAttr.slug] === null ? '' : leadFormData[leadAttr.slug]}
                                 onInput={(e) => {
                                     const formValueData = {...leadFormData}
                                     formValueData[leadAttr.slug] = e.target.value;
