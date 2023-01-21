@@ -7,10 +7,13 @@ const LeadForm = (props) => {
     const [originalAttrData, setOriginalAttrData] = useState({});
     const [errorMsg, setErrorMsg] = useState('');
 
+    const isEditOn = props.isEditOn;  // Edit
+    const lead = isEditOn ? props.lead : {};  // Edit
+
     const fetchLeadAttr = () => {
         const leadattribute = JSON.parse(localStorage.getItem('leadattribute'));
-        let leadAttrObj = {}
-        let leadFullAttrObj = {}
+        let leadAttrObj = {};
+        let leadFullAttrObj = {};
         leadattribute.forEach((value, index) => {
             if(value.attribute_type === 'boolean'){
                 leadAttrObj[value.slug] = false;
@@ -25,10 +28,24 @@ const LeadForm = (props) => {
         setOriginalAttrData(leadAttrObj);
         setleadFormData(leadAttrObj);
     }
-    
+
     useEffect(() => {
         fetchLeadAttr();
     }, [])
+
+    // if (isEditOn){
+    //     let leadAttrObj = {};
+    //     const leadData = lead.data;
+    //     Object.entries(leadData).forEach(data => {
+    //         const [leadType, leadData] = data;
+    //         leadAttrObj = {...leadAttrObj, ...leadData};
+    //     });
+    //     // setEditleadFormData(leadAttrObj);
+    // }
+
+    const handleEditLead = async (e) => {
+        e.preventDefault();
+    }
 
     const handleLead = async (e) => {
         e.preventDefault();
@@ -78,7 +95,11 @@ const LeadForm = (props) => {
                                 className="form-control border-0"
                                 placeholder={leadAttr.name}
                                 id={leadAttr.slug}
-                                value={leadFormData[leadAttr.slug] === null ? '' : leadFormData[leadAttr.slug]}
+                                value={
+                                    isEditOn ? (lead.data[leadAttr.lead_type][leadAttr.slug] === null ? ''
+                                    : lead.data[leadAttr.lead_type][leadAttr.slug]) :
+                                    leadFormData[leadAttr.slug] === null ? '' : leadFormData[leadAttr.slug]
+                                }
                                 onInput={(e) => {
                                     const formValueData = {...leadFormData}
                                     formValueData[leadAttr.slug] = e.target.value;
@@ -89,7 +110,9 @@ const LeadForm = (props) => {
                         </div>
                     ))}
                 </div>
-            <button className="btn btn-primary FormCardBodyGroupButton" type="submit">Add</button>
+            <button className="btn btn-primary FormCardBodyGroupButton" type="submit">
+                {props.isEditOn ? 'Edit' : 'Create'}
+            </button>
           </div>
         </form>
     )
