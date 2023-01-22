@@ -21,6 +21,11 @@ const LeadEditForm = ({leadattribute, editLeadFormData, lead, editLeadIndex, pos
         const updatedLead = lead;
         updatedLead.data = data;
 
+        if (JSON.stringify(lead) === JSON.stringify(updatedLead)){
+            setErrorMsg('No change detected')
+            return;
+        }
+
         try{
             const resp = await updateLead(lead.id, updatedLead);
             postLeadUpdate(editLeadIndex, resp.data);
