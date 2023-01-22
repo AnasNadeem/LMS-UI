@@ -8,6 +8,7 @@ const Lead = () => {
   const [leadData, setLeadData] = useState([]);
   const [isEditOn, setIsEditOn] = useState(false);
   const [editLead, setEditLead] = useState({});
+  const [editLeadIndex, setEditLeadIndex] = useState();
   const [editLeadFormData, setEditleadFormData] = useState({});
   const leadattribute = JSON.parse(localStorage.getItem('leadattribute'));
 
@@ -24,6 +25,11 @@ const Lead = () => {
     setLeadData([...leadData, data])
   }
 
+  const postLeadUpdate = (index, data) => {
+    leadData.splice(index, 1, data);
+    setLeadData([...leadData])
+  }
+
   const editLeadHandler = async (lead, leadIndex) => {
     document.getElementById('createLeadForm').classList.add('show');
     let leadAttrObj = {};
@@ -34,6 +40,7 @@ const Lead = () => {
     setEditleadFormData(leadAttrObj);
     setIsEditOn(true);
     setEditLead(lead);
+    setEditLeadIndex(leadIndex)
   }
 
   const deleteLeadHandler = async (id, leadIndex) => {
@@ -72,7 +79,13 @@ const Lead = () => {
                       </div>
 
                       <div className="collapse" id="createLeadForm">
-                        {isEditOn ? <LeadEditForm leadattribute={leadattribute} editLeadFormData={editLeadFormData} lead={editLead}/>
+                        {isEditOn ?
+                        <LeadEditForm
+                        leadattribute={leadattribute}
+                        editLeadFormData={editLeadFormData}
+                        lead={editLead}
+                        editLeadIndex={editLeadIndex}
+                        postLeadUpdate={postLeadUpdate}/>
                         : <LeadForm postLeadCreation={postLeadCreation}/>}
                       </div>
 

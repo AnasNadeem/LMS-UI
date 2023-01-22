@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { updateLead } from "../api";
 
-const LeadEditForm = ({leadattribute, editLeadFormData, lead}) => {
+const LeadEditForm = ({leadattribute, editLeadFormData, lead, editLeadIndex, postLeadUpdate}) => {
     const [leadFormData, setleadFormData] = useState(editLeadFormData);
     const [errorMsg, setErrorMsg] = useState('');
 
@@ -23,8 +23,7 @@ const LeadEditForm = ({leadattribute, editLeadFormData, lead}) => {
 
         try{
             const resp = await updateLead(lead.id, updatedLead);
-            console.log(resp.data)
-            // props.postLeadCreation(resp.data);
+            postLeadUpdate(editLeadIndex, resp.data);
           } catch(err){
             let errorMsg = '';
             for (const [key, value] of Object.entries(err.response.data)) {
