@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { updateLead } from "../api";
+import isEqual from "lodash/isEqual";
 
 const LeadEditForm = ({leadattribute, editLeadFormData, lead, editLeadIndex, postLeadUpdate}) => {
     const [leadFormData, setleadFormData] = useState(editLeadFormData);
@@ -18,10 +19,10 @@ const LeadEditForm = ({leadattribute, editLeadFormData, lead, editLeadIndex, pos
         Object.keys(leadData.post).forEach(key => {
             data.post[key] = leadFormData[key];
         });
-        const updatedLead = lead;
+        const updatedLead = {...lead};
         updatedLead.data = data;
 
-        if (JSON.stringify(lead) === JSON.stringify(updatedLead)){
+        if (isEqual(lead.data, updatedLead.data)){
             setErrorMsg('No change detected')
             return;
         }
