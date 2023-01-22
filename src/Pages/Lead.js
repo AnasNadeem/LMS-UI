@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import LeadForm from "../components/LeadForm";
+import LeadEditForm from "../components/LeadEditForm";
 import { getLead, deleteLead } from "../api";
 
 const Lead = () => {
   const [leadData, setLeadData] = useState([]);
-
+  const [isEditOn, setIsEditOn] = useState(false);
+  const [editLead, setEditLead] = useState({});
+  const [editLeadIndex, setEditLeadIndex] = useState();
+  const [editLeadFormData, setEditleadFormData] = useState({});
   const leadattribute = JSON.parse(localStorage.getItem('leadattribute'));
 
   const fetchLead = async () => {
@@ -19,6 +23,24 @@ const Lead = () => {
 
   const postLeadCreation = (data) => {
     setLeadData([...leadData, data])
+  }
+
+  const postLeadUpdate = (index, data) => {
+    leadData.splice(index, 1, data);
+    setLeadData([...leadData])
+  }
+
+  const editLeadHandler = async (lead, leadIndex) => {
+    document.getElementById('createLeadForm').classList.add('show');
+    let leadAttrObj = {};
+    const leadData = lead.data;
+    Object.values(leadData).forEach(value => {
+        leadAttrObj = {...leadAttrObj, ...value};
+    });
+    setEditleadFormData(leadAttrObj);
+    setIsEditOn(true);
+    setEditLead(lead);
+    setEditLeadIndex(leadIndex)
   }
 
   const deleteLeadHandler = async (id, leadIndex) => {
@@ -57,7 +79,14 @@ const Lead = () => {
                       </div>
 
                       <div className="collapse" id="createLeadForm">
-                        <LeadForm postLeadCreation={postLeadCreation}/>
+                        {isEditOn ?
+                        <LeadEditForm
+                        leadattribute={leadattribute}
+                        editLeadFormData={editLeadFormData}
+                        lead={editLead}
+                        editLeadIndex={editLeadIndex}
+                        postLeadUpdate={postLeadUpdate}/>
+                        : <LeadForm postLeadCreation={postLeadCreation}/>}
                       </div>
 
                     {leadattribute.length>0 ?  
@@ -78,7 +107,7 @@ const Lead = () => {
                                 ))
                               }
                               <td>
-                                  <i className="fas fa-edit"></i>{' '}
+                                  <i className="fas fa-edit" onClick={() => editLeadHandler(lead, leadIndex)}></i>{' '}
                                   <i className="fa-solid fa-trash trashIcon" onClick={() => deleteLeadHandler(lead.id, leadIndex)}></i>
                               </td>
                             </tr>
