@@ -1,51 +1,30 @@
-import { useEffect, useState } from "react";
-import { createLead } from "../api";
+import { useState } from "react";
+import { updateLead } from "../api";
 
-const LeadForm = (props) => {
-    const [leadAttrData, setLeadAttrData] = useState({});
-    const [leadFormData, setleadFormData] = useState({});
-    const [originalAttrData, setOriginalAttrData] = useState({});
+const LeadEditForm = ({leadattribute, editLeadFormData, lead}) => {
+    const [leadFormData, setleadFormData] = useState(editLeadFormData);
     const [errorMsg, setErrorMsg] = useState('');
 
-    const fetchLeadAttr = () => {
-        const leadattribute = JSON.parse(localStorage.getItem('leadattribute'));
-        let leadAttrObj = {};
-        let leadFullAttrObj = {};
-        leadattribute.forEach((value, index) => {
-            if(value.attribute_type === 'boolean'){
-                leadAttrObj[value.slug] = false;
-            } else if (value.attribute_type === 'string'){
-                leadAttrObj[value.slug] = '';
-            }else{
-                leadAttrObj[value.slug] = null;
-            }
-            leadFullAttrObj[value.slug] = value;
-        });
-        setLeadAttrData(leadFullAttrObj);
-        setOriginalAttrData(leadAttrObj);
-        setleadFormData(leadAttrObj);
-    }
-
-    useEffect(() => {
-        fetchLeadAttr();
-    }, [])
-
-    const handleLead = async (e) => {
+    const handleEditLead = async (e) => {
         e.preventDefault();
-        const account = JSON.parse(localStorage.getItem('account'));
         const data = {main:{}, track:{}, post:{}}
-        Object.entries(leadFormData).forEach(entry => {
-            const [key, value] = entry;
-            data[leadAttrData[key].lead_type][key] = value;
+        const leadData = lead.data;
+        Object.keys(leadData.main).forEach(key => {
+            data.main[key] = leadFormData[key];
         });
-        const leadData = {
-            "account": account.id,
-            "data": data
-        }
+        Object.keys(leadData.track).forEach(key => {
+            data.track[key] = leadFormData[key];
+        });
+        Object.keys(leadData.post).forEach(key => {
+            data.post[key] = leadFormData[key];
+        });
+        const updatedLead = lead;
+        updatedLead.data = data;
 
         try{
-            const resp = await createLead(leadData);
-            props.postLeadCreation(resp.data);
+            const resp = await updateLead(lead.id, updatedLead);
+            console.log(resp.data)
+            // props.postLeadCreation(resp.data);
           } catch(err){
             let errorMsg = '';
             for (const [key, value] of Object.entries(err.response.data)) {
@@ -54,11 +33,11 @@ const LeadForm = (props) => {
             setErrorMsg(errorMsg);
             return;
           }
-        setleadFormData(originalAttrData);
+        // setleadFormData(originalAttrData);
     }
 
     return (
-        <form onSubmit={handleLead}>
+        <form onSubmit={handleEditLead}>
             <div className="card card-body mt-2">
                 {errorMsg &&
                 <div className="alert alert-danger" role="alert">
@@ -66,7 +45,7 @@ const LeadForm = (props) => {
                 </div>
                 }
                 <div className="leadFormCard">
-                    {Object.values(leadAttrData).map((leadAttr) => (
+                    {Object.values(leadattribute).map((leadAttr) => (
                         <div className="FormCardBodyGroup" key={leadAttr.slug}>
                             <label 
                             htmlFor={leadAttr.slug}
@@ -89,10 +68,10 @@ const LeadForm = (props) => {
                         </div>
                     ))}
                 </div>
-            <button className="btn btn-primary FormCardBodyGroupButton" type="submit">Create</button>
+            <button className="btn btn-primary FormCardBodyGroupButton" type="submit">Edit</button>
           </div>
         </form>
     )
 }
 
-export default LeadForm
+export default LeadEditForm;

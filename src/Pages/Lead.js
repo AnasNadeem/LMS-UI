@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import LeadForm from "../components/LeadForm";
+import LeadEditForm from "../components/LeadEditForm";
 import { getLead, deleteLead } from "../api";
 
 const Lead = () => {
   const [leadData, setLeadData] = useState([]);
   const [isEditOn, setIsEditOn] = useState(false);
   const [editLead, setEditLead] = useState({});
+  const [editLeadFormData, setEditleadFormData] = useState({});
   const leadattribute = JSON.parse(localStorage.getItem('leadattribute'));
 
   const fetchLead = async () => {
@@ -24,6 +26,12 @@ const Lead = () => {
 
   const editLeadHandler = async (lead, leadIndex) => {
     document.getElementById('createLeadForm').classList.add('show');
+    let leadAttrObj = {};
+    const leadData = lead.data;
+    Object.values(leadData).forEach(value => {
+        leadAttrObj = {...leadAttrObj, ...value};
+    });
+    setEditleadFormData(leadAttrObj);
     setIsEditOn(true);
     setEditLead(lead);
   }
@@ -64,8 +72,8 @@ const Lead = () => {
                       </div>
 
                       <div className="collapse" id="createLeadForm">
-                        {isEditOn ? <LeadForm isEditOn={isEditOn} lead={editLead}/>
-                        : <LeadForm isEditOn={isEditOn} postLeadCreation={postLeadCreation}/>}
+                        {isEditOn ? <LeadEditForm leadattribute={leadattribute} editLeadFormData={editLeadFormData} lead={editLead}/>
+                        : <LeadForm postLeadCreation={postLeadCreation}/>}
                       </div>
 
                     {leadattribute.length>0 ?  
