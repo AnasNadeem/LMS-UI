@@ -116,6 +116,18 @@ body{
   margin-top: 1.5rem;
 }
 
+.topBtnRightSide{
+  display: flex;
+}
+
+.downloadCSV{
+  font-size: 2rem;
+  color: var(--accentCol);
+  margin-left: 1rem;
+  margin-top: .2rem;
+  cursor: pointer;
+}
+
 .createBtn{
   font-size: 1rem;
   font-weight: 400;
