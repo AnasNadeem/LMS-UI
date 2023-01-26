@@ -29,7 +29,7 @@ export const getAccount = () => baseAxios.get(`/account`);
 export const createAccount = (data) => baseAxios.post(`/account`, data);
 export const updateAccount = (accountId, data) => baseAxios.post(`/account/${accountId}`, data);
 export const downloadCSVApi = () => baseAxios.get(`/account/download_structure_csv`);
-export const uploadCsv = (data) => baseAxios.post(`/account/upload_leads_via_csv`, data);
+export const uploadCSVApi = (data) => baseAxios.post(`/account/upload_leads_via_csv`, data, {headers: {'Content-Type': 'multipart/form-data'}});
 
 // Lead Attribute
 export const getIdLeadAttr = (leadAttrId) => baseAxios.get(`/leadattribute/${leadAttrId}`);

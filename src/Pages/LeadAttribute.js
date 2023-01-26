@@ -62,7 +62,7 @@ const LeadAttribute = () => {
                           <button className="btn createBtn" data-bs-toggle="collapse" data-bs-target="#createLeadStructure" aria-expanded="false" aria-controls="createLeadStructure">
                             Create New
                           </button>
-                          <i className="fa-solid fa-file-arrow-down downloadCSV" onClick={downloadCSV}></i>
+                          <i className="fa-solid fa-file-arrow-down downloadCSV" title="Download Lead Structure in CSV" onClick={downloadCSV}></i>
                         </div>
                         <input type="text" placeholder="Search" />
                       </div>
