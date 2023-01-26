@@ -3,6 +3,7 @@ import { getLeadAttr, downloadCSVApi } from "../api";
 import LeadAttrForm from "../components/LeadAttrForm";
 import LeadAttrTable from "../components/LeadAttrTable";
 import Sidebar from "../components/Sidebar";
+import { downloadFile } from "../utils";
 
 const LeadAttribute = () => {
   const [leadAttrData, setLeadAttrData] = useState([]);
@@ -36,11 +37,9 @@ const LeadAttribute = () => {
   }
 
   const downloadCSV = async () => {
-    console.log('downloadCSV');
     try {
       const resp = await downloadCSVApi();
-      console.log(resp);
-      console.log(resp.data);
+      downloadFile(resp.data, 'leadattribute.csv');
     } catch (error) {
       console.log('Error in downloading', error)
     }

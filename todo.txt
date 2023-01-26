@@ -1,1 +1,7 @@
 useContext instead of localStorage
+
+# TODO
+1. Download Structure CSV
+2. Upload Leads via CSV
+3. Reports
+4. Invite Members
