@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Sidebar from "../components/Sidebar";
 import LeadForm from "../components/LeadForm";
 import LeadEditForm from "../components/LeadEditForm";
-import { getLead, deleteLead } from "../api";
+import { getLead, deleteLead, uploadCSVApi } from "../api";
 
 const Lead = () => {
   const [leadData, setLeadData] = useState([]);
@@ -10,8 +10,11 @@ const Lead = () => {
   const [editLead, setEditLead] = useState({});
   const [editLeadIndex, setEditLeadIndex] = useState();
   const [editLeadFormData, setEditleadFormData] = useState({});
-  const leadattribute = JSON.parse(localStorage.getItem('leadattribute'));
+  // Upload CSV
+  // const [file, setFile] = useState(null);
+  const uploadCsvRef = useRef(null);
 
+  const leadattribute = JSON.parse(localStorage.getItem('leadattribute'));
   const fetchLead = async () => {
     const resp = await getLead();
     setLeadData(resp.data);
@@ -57,6 +60,32 @@ const Lead = () => {
     leadData.splice(leadIndex, 1);
     setLeadData([...leadData])
   }
+
+  const handleFileChange = (e) => {
+    if (!e.target.files) {
+      return;
+    }
+    const files = e.target.files;
+    // setFile(files[0]);
+    uploadCSV(files[0]);
+  };
+
+  const uploadCSV = async (file) => {
+    if (!file) {
+      console.log('No file selected');
+      return;
+    }
+    const uploadData = {
+      "file": file,
+    }
+    try{
+      await uploadCSVApi(uploadData);
+      fetchLead();
+    }catch(err){
+      console.log('Error in uploading leads', err);
+      return;
+    }
+  }
   return (
     <div className="container-fluid">
         <div className="row">
@@ -70,9 +99,13 @@ const Lead = () => {
                         Lead
                       </h2>
                       <div className="topBtn">
-                      <button className="btn createBtn" data-bs-toggle="collapse" data-bs-target="#createLeadForm" aria-expanded="false" aria-controls="createLeadForm">
-                          Create New
-                        </button>
+                        <div className="topBtnRightSide">
+                          <button className="btn createBtn" data-bs-toggle="collapse" data-bs-target="#createLeadForm" aria-expanded="false" aria-controls="createLeadForm">
+                            Create New
+                          </button>
+                            <input type="file" ref={uploadCsvRef} accept="text/csv" onChange={handleFileChange} style={{display:"none"}} />
+                            <i className="fa-solid fa-file-arrow-up downloadCSV" title="Upload Leads via CSV" onClick={() => uploadCsvRef.current?.click()}></i>
+                        </div>
                         <button className="btn createBtn">
                             Filters
                         </button>
