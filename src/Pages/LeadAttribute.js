@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { getLeadAttr } from "../api";
+import { getLeadAttr, downloadCSVApi } from "../api";
 import LeadAttrForm from "../components/LeadAttrForm";
 import LeadAttrTable from "../components/LeadAttrTable";
 import Sidebar from "../components/Sidebar";
+import { downloadFile } from "../utils";
 
 const LeadAttribute = () => {
   const [leadAttrData, setLeadAttrData] = useState([]);
@@ -35,6 +36,15 @@ const LeadAttribute = () => {
     localStorage.setItem('leadattribute', JSON.stringify(leadAttrData));
   }
 
+  const downloadCSV = async () => {
+    try {
+      const resp = await downloadCSVApi();
+      downloadFile(resp.data, 'leadattribute.csv');
+    } catch (error) {
+      console.log('Error in downloading', error)
+    }
+  }
+
   return (
     <div className="container-fluid">
         <div className="row">
@@ -48,9 +58,12 @@ const LeadAttribute = () => {
                         Lead Structure
                       </h2>
                       <div className="topBtn">
-                        <button className="btn createBtn" data-bs-toggle="collapse" data-bs-target="#createLeadStructure" aria-expanded="false" aria-controls="createLeadStructure">
-                          Create New
-                        </button>
+                        <div className="topBtnRightSide">
+                          <button className="btn createBtn" data-bs-toggle="collapse" data-bs-target="#createLeadStructure" aria-expanded="false" aria-controls="createLeadStructure">
+                            Create New
+                          </button>
+                          <i className="fa-solid fa-file-arrow-down downloadCSV" onClick={downloadCSV}></i>
+                        </div>
                         <input type="text" placeholder="Search" />
                       </div>
 
