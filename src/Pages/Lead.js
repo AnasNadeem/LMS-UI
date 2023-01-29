@@ -15,6 +15,9 @@ const Lead = () => {
   const uploadCsvRef = useRef(null);
 
   const leadattribute = JSON.parse(localStorage.getItem('leadattribute'));
+  const constants = JSON.parse(localStorage.getItem('constants'));
+  const filterCombo = constants.ATTR_OP_COMBO;
+
   const fetchLead = async () => {
     const resp = await getLead();
     setLeadData(resp.data);
@@ -106,9 +109,28 @@ const Lead = () => {
                             <input type="file" ref={uploadCsvRef} accept="text/csv" onChange={handleFileChange} style={{display:"none"}} />
                             <i className="fa-solid fa-file-arrow-up downloadCSV" title="Upload Leads via CSV" onClick={() => uploadCsvRef.current?.click()}></i>
                         </div>
-                        <button className="btn createBtn">
+                        <button
+                          className="btn createBtn"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#filterForm"
+                          aria-expanded="false"
+                          aria-controls="filterForm">
                             Filters
                         </button>
+                      </div>
+
+                      <div className="collapse" id="filterForm">
+                        <div className="card card-body">
+                          <div className="d-flex FormCardBodyGroupInput rounded">
+                            <select
+                            className="form-select border-0"
+                            >
+                              {leadattribute.map((leadAttr) => (
+                                <option key={leadAttr.slug} value={leadAttr.slug}>{leadAttr.slug}</option>
+                              ))}
+                            </select>
+                          </div>
+                        </div>
                       </div>
 
                       <div className="collapse" id="createLeadForm">

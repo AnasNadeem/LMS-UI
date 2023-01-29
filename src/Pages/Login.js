@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { getAccount, login } from "../api";
 import { checkIfEmpty, logout } from "../utils";
-import { baseAxios } from "../api";
+import { baseAxios, constants } from "../api";
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -9,10 +9,20 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
+  const getConstants = async () => {
+    try{
+      const resp = await constants();
+      localStorage.setItem('constants', JSON.stringify(resp.data));
+    } catch(err){
+      logout();
+    }
+  }
+
   const fetchAccount = async () => {
     try{
       const accountResp = await getAccount();
       if (accountResp.data.length > 0){
+        getConstants();
         localStorage.setItem('account', JSON.stringify(accountResp.data[0]));
         document.location = '/leadstructure';
       }else{
