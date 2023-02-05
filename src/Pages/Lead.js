@@ -3,6 +3,7 @@ import Sidebar from "../components/Sidebar";
 import LeadForm from "../components/LeadForm";
 import LeadEditForm from "../components/LeadEditForm";
 import { getLead, deleteLead, uploadCSVApi } from "../api";
+import LeadFilterForm from "./LeadFilterForm";
 
 const Lead = () => {
   const [leadData, setLeadData] = useState([]);
@@ -15,8 +16,6 @@ const Lead = () => {
   const uploadCsvRef = useRef(null);
 
   const leadattribute = JSON.parse(localStorage.getItem('leadattribute'));
-  const constants = JSON.parse(localStorage.getItem('constants'));
-  const filterCombo = constants.ATTR_OP_COMBO;
 
   const fetchLead = async () => {
     const resp = await getLead();
@@ -120,17 +119,7 @@ const Lead = () => {
                       </div>
 
                       <div className="collapse" id="filterForm">
-                        <div className="card card-body">
-                          <div className="d-flex FormCardBodyGroupInput rounded">
-                            <select
-                            className="form-select border-0"
-                            >
-                              {leadattribute.map((leadAttr) => (
-                                <option key={leadAttr.slug} value={leadAttr.slug}>{leadAttr.slug}</option>
-                              ))}
-                            </select>
-                          </div>
-                        </div>
+                        <LeadFilterForm />
                       </div>
 
                       <div className="collapse" id="createLeadForm">
