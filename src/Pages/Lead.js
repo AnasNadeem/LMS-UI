@@ -16,6 +16,13 @@ const Lead = () => {
   const uploadCsvRef = useRef(null);
 
   const leadattribute = JSON.parse(localStorage.getItem('leadattribute'));
+  const constants = JSON.parse(localStorage.getItem('constants'));
+  const filterCombo = constants.ATTR_OP_COMBO;
+
+  let leadFullAttrObj = {};
+  leadattribute.forEach((value, index) => {
+      leadFullAttrObj[value.slug] = value;
+  });
 
   const fetchLead = async () => {
     const resp = await getLead();
@@ -119,7 +126,7 @@ const Lead = () => {
                       </div>
 
                       <div className="collapse" id="filterForm">
-                        <LeadFilterForm />
+                        <LeadFilterForm leadattribute={leadattribute} filterCombo={filterCombo} leadFullAttrObj={leadFullAttrObj}/>
                       </div>
 
                       <div className="collapse" id="createLeadForm">

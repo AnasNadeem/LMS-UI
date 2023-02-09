@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-const LeadFilterFormRow = ({leadattribute, leadFullAttrObj, filterCombo}) => {
+const LeadFilterFormRow = ({leadattribute, leadFullAttrObj, filterCombo, postFilterData}) => {
     const [slugFilter, setSlugFilter] = useState('');
     const [opFilter, setOpFilter] = useState('');
     const [valueFilter, setValueFilter] = useState('');
 
     return (
-        <div className="row">
+        <div className="row mt-2">
             <div className="col-4">
                 <div className="d-flex FormCardBodyGroupInput rounded">
                 <select
@@ -43,7 +43,10 @@ const LeadFilterFormRow = ({leadattribute, leadFullAttrObj, filterCombo}) => {
                     className="form-control border-0"
                     id="name"
                     value={valueFilter}
-                    onInput={(e) => setValueFilter(e.target.value)}
+                    onInput={(e) => {
+                        setValueFilter(e.target.value)
+                        postFilterData(slugFilter, opFilter, valueFilter)
+                    }}
                     />
                 </div>
             </div>
