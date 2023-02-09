@@ -3,6 +3,7 @@ import Sidebar from "../components/Sidebar";
 import LeadForm from "../components/LeadForm";
 import LeadEditForm from "../components/LeadEditForm";
 import { getLead, deleteLead, uploadCSVApi } from "../api";
+import LeadFilterForm from "./LeadFilterForm";
 
 const Lead = () => {
   const [leadData, setLeadData] = useState([]);
@@ -15,6 +16,14 @@ const Lead = () => {
   const uploadCsvRef = useRef(null);
 
   const leadattribute = JSON.parse(localStorage.getItem('leadattribute'));
+  const constants = JSON.parse(localStorage.getItem('constants'));
+  const filterCombo = constants.ATTR_OP_COMBO;
+
+  let leadFullAttrObj = {};
+  leadattribute.forEach((value, index) => {
+      leadFullAttrObj[value.slug] = value;
+  });
+
   const fetchLead = async () => {
     const resp = await getLead();
     setLeadData(resp.data);
@@ -106,9 +115,18 @@ const Lead = () => {
                             <input type="file" ref={uploadCsvRef} accept="text/csv" onChange={handleFileChange} style={{display:"none"}} />
                             <i className="fa-solid fa-file-arrow-up downloadCSV" title="Upload Leads via CSV" onClick={() => uploadCsvRef.current?.click()}></i>
                         </div>
-                        <button className="btn createBtn">
+                        <button
+                          className="btn createBtn"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#filterForm"
+                          aria-expanded="false"
+                          aria-controls="filterForm">
                             Filters
                         </button>
+                      </div>
+
+                      <div className="collapse" id="filterForm">
+                        <LeadFilterForm leadattribute={leadattribute} filterCombo={filterCombo} leadFullAttrObj={leadFullAttrObj}/>
                       </div>
 
                       <div className="collapse" id="createLeadForm">

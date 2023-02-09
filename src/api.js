@@ -30,6 +30,7 @@ export const createAccount = (data) => baseAxios.post(`/account`, data);
 export const updateAccount = (accountId, data) => baseAxios.post(`/account/${accountId}`, data);
 export const downloadCSVApi = () => baseAxios.get(`/account/download_structure_csv`);
 export const uploadCSVApi = (data) => baseAxios.post(`/account/upload_leads_via_csv`, data, {headers: {'Content-Type': 'multipart/form-data'}});
+export const constants = () => baseAxios.get(`/account/constants`);
 
 // Lead Attribute
 export const getIdLeadAttr = (leadAttrId) => baseAxios.get(`/leadattribute/${leadAttrId}`);
@@ -44,3 +45,4 @@ export const getLead = () => baseAxios.get(`/lead`);
 export const createLead = (data) => baseAxios.post(`/lead`, data);
 export const updateLead = (leadId, data) => baseAxios.put(`/lead/${leadId}`, data);
 export const deleteLead = (leadId) => baseAxios.delete(`/lead/${leadId}`);
+export const leadFilterApi = (data) => baseAxios.put(`/lead/lead_filter`, data);
