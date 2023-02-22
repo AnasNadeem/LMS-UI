@@ -46,3 +46,11 @@ export const createLead = (data) => baseAxios.post(`/lead`, data);
 export const updateLead = (leadId, data) => baseAxios.put(`/lead/${leadId}`, data);
 export const deleteLead = (leadId) => baseAxios.delete(`/lead/${leadId}`);
 export const leadFilterApi = (data) => baseAxios.put(`/lead/lead_filter`, data);
+
+// Member
+export const getIdMember = (memberId) => baseAxios.get(`/member/${memberId}`);
+export const getMember = () => baseAxios.get(`/member`);
+export const createMember = (data) => baseAxios.post(`/member`, data);
+export const updateMember = (memberId, data) => baseAxios.put(`/member/${memberId}`, data);
+export const deleteMember = (memberId) => baseAxios.delete(`/member/${memberId}`);
+export const inviteMember = (data) => baseAxios.post(`/member/invite_member`, data);
