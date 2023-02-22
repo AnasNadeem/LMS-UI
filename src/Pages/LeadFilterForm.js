@@ -1,6 +1,6 @@
 import { useState } from "react";
 import LeadFilterFormRow from "../components/LeadFilterFormRow";
-// import { leadFilterApi } from "../api";
+import { leadFilterApi } from "../api";
 
 const LeadFilterForm = ({leadattribute, filterCombo, leadFullAttrObj}) => {
     const [filterData, setFilterData] = useState({});
@@ -8,16 +8,15 @@ const LeadFilterForm = ({leadattribute, filterCombo, leadFullAttrObj}) => {
     const [isSubmit, setIsSubmit] = useState(false);
 
     const handleLeadFilter = async () => {
-        // e.preventDefault();
         setIsSubmit(true);
-        console.log(filterData);
-        // const response = await leadFilterApi(filterData);
-        // console.log(response.data);
+        const jsonFilterData = JSON.stringify(filterData);
+        const response = await leadFilterApi(jsonFilterData);
+        console.log(response.data);
+
     }
 
     const postFilterData = (slug, op, value) => {
         const filter = {};
-        console.log(slug, op, value);
         filter[slug] = [op, value];
         setFilterData({...filterData, ...filter});
     }
