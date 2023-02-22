@@ -11,6 +11,7 @@ const Lead = () => {
   const [editLead, setEditLead] = useState({});
   const [editLeadIndex, setEditLeadIndex] = useState();
   const [editLeadFormData, setEditleadFormData] = useState({});
+
   // Upload CSV
   // const [file, setFile] = useState(null);
   const uploadCsvRef = useRef(null);
@@ -27,6 +28,10 @@ const Lead = () => {
   const fetchLead = async () => {
     const resp = await getLead();
     setLeadData(resp.data);
+  }
+
+  const postFilterLead = (lead) => {
+    setLeadData([...lead])
   }
 
   useEffect(() => {
@@ -126,7 +131,12 @@ const Lead = () => {
                       </div>
 
                       <div className="collapse" id="filterForm">
-                        <LeadFilterForm leadattribute={leadattribute} filterCombo={filterCombo} leadFullAttrObj={leadFullAttrObj}/>
+                        <LeadFilterForm
+                        leadattribute={leadattribute}
+                        filterCombo={filterCombo}
+                        leadFullAttrObj={leadFullAttrObj}
+                        postFilterLead={postFilterLead}
+                        />
                       </div>
 
                       <div className="collapse" id="createLeadForm">
