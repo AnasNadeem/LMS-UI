@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const LeadFilterFormRow = ({leadattribute, leadFullAttrObj, filterCombo, postFilterData}) => {
+const LeadFilterFormRow = ({leadattribute, leadFullAttrObj, filterCombo, postFilterData, isSubmit}) => {
     const [slugFilter, setSlugFilter] = useState('');
     const [opFilter, setOpFilter] = useState('');
     const [valueFilter, setValueFilter] = useState('');
+
+    useEffect(() => {
+    }, [isSubmit])
 
     return (
         <div className="row mt-2">
@@ -45,7 +48,7 @@ const LeadFilterFormRow = ({leadattribute, leadFullAttrObj, filterCombo, postFil
                     value={valueFilter}
                     onInput={(e) => {
                         setValueFilter(e.target.value)
-                        postFilterData(slugFilter, opFilter, valueFilter)
+                        postFilterData(slugFilter, opFilter, e.target.value);
                     }}
                     />
                 </div>
