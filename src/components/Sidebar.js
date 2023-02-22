@@ -15,6 +15,11 @@ const Sidebar = () => {
             </a>
         </li>
         <li>
+            <a className="sidebarBodyA" href="/member">
+            Member
+            </a>
+        </li>
+        <li>
             <button className="sidebarBodyA" onClick={logout}>
                 Logout
             </button>

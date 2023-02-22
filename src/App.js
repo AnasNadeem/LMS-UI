@@ -4,6 +4,7 @@ import LeadAttribute from './Pages/LeadAttribute';
 import Login from './Pages/Login';
 import Otp from './Pages/Otp';
 import Register from './Pages/Register';
+import Member from './Pages/Member';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const App = () => {
@@ -31,6 +32,10 @@ const App = () => {
     {
       path: "/leadstructure",
       element: <LeadAttribute />
+    },
+    {
+      path: "/member",
+      element: <Member />
     },
   ]);
 
